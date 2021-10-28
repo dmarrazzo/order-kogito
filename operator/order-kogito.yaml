@@ -1,0 +1,48 @@
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoBuild
+metadata:
+  name: order-kogito
+spec:
+  type: RemoteSource
+  gitSource:
+    contextDir: order-kogito
+    uri: 'https://github.com/kiegroup/kogito-examples'
+  env:
+    - name: MAVEN_ARGS_APPEND
+      value: "-Popenshift"
+# set your maven nexus repository to speed up the build time
+#mavenMirrorURL:
+#uncomment to enable persistence
+#---
+##Infinispan operator should be pre-installed in namespace
+#apiVersion: app.kiegroup.org/v1beta1
+#kind: KogitoInfra
+#metadata:
+#  name: kogito-infinispan-infra
+#spec:
+#  resource:
+#    apiVersion: infinispan.org/v1
+#    kind: Infinispan
+---
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoRuntime
+metadata:
+  name: order-kogito
+spec:
+  replicas: 1
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /probes/live # Liveness endpoint
+        port: 8080
+    readinessProbe:
+      httpGet:
+        path: /probes/ready # Readiness endpoint
+        port: 8080
+    startupProbe:
+      tcpSocket:
+        port: 8080
+# uncomment to enable persistence
+#spec:
+#  infra:
+#    - kogito-infinispan-infra
