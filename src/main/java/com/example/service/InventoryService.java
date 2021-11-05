@@ -2,7 +2,7 @@ package com.example.service;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import com.example.Order;
+import com.example.model.Order;
 
 @ApplicationScoped
 public class InventoryService {
