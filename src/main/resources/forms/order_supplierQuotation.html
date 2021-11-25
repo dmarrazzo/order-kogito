@@ -11,6 +11,10 @@
 				<input type="number" class="form-control" id="order.price" name="order.price" step="0.01" value="" />
 				<input type="number" class="form-control" id="order.urgency" name="order.urgency" step="0.01" hidden value="" />
 			</div>
+			<div class="form-group">
+				<label for="order.deliveryDate">Delivery Date</label>
+				<input type="date" class="form-control" id="order.deliveryDate" name="order.deliveryDate" />
+			</div>
 		</div>
 	</fieldset>
 	<script>
@@ -22,6 +26,7 @@
 			document.getElementById("order.item").value = data?.order?.item ?? "";
 			document.getElementById("order.price").value = data?.order?.price ?? "";
 			document.getElementById("order.urgency").value = data?.order?.urgency ?? "";
+			document.getElementById("order.deliveryDate").value = "2021-12-01";
 		}
 		/* Utility function to generate the expected form output as a json object */
 		function getFormData() {
@@ -30,6 +35,7 @@
 			formData.order.item = document.getElementById("order.item").value;
 			formData.order.price = Number(document.getElementById("order.price").value);
 			formData.order.urgency = Number(document.getElementById("order.urgency").value);
+			formData.order.deliveryDate = document.getElementById("order.deliveryDate").value;
 			return formData;
 		}
 		/* Utility function to validate the form on the 'beforeSubmit' Lifecycle Hook */

@@ -1,11 +1,13 @@
 package com.example.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Order implements Serializable {
     private String item;
     private double price;
     private int urgency;
+    private LocalDate deliveryDate;
     
     @Override
     public String toString() {
@@ -13,6 +15,14 @@ public class Order implements Serializable {
     }
 
     // GETTERS / SETTERS ---------------------------------------------------------------
+
+    public LocalDate getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(LocalDate deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
 
     public String getItem() {
         return item;
