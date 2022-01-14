@@ -1,0 +1,23 @@
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoSupportingService
+metadata:
+  name: data-index
+spec:
+  serviceType: DataIndex
+  infra:
+    - kogito-kafka-infra
+  image: kogito-data-index-postgresql
+  env:
+    - name: QUARKUS_DATASOURCE_DB-KIND
+      value: postgresql
+    - name: QUARKUS_DATASOURCE_USERNAME
+      value: kogito-user
+    - name: QUARKUS_DATASOURCE_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: postgresql
+          key: database-password
+    - name: QUARKUS_DATASOURCE_JDBC_URL
+      value: jdbc:postgresql://postgresql.kogito-112.svc.cluster.local:5432/kogito
+    - name: QUARKUS_HIBERNATE_ORM_DATABASE_GENERATION
+      value: update
